@@ -25,6 +25,7 @@ export type Database = {
           id: string
           id_number: string
           overdraft: number
+          parent_id: string | null
           pending: number
           phone: string
           username: string
@@ -39,6 +40,7 @@ export type Database = {
           id: string
           id_number?: string
           overdraft?: number
+          parent_id?: string | null
           pending?: number
           phone?: string
           username: string
@@ -53,11 +55,20 @@ export type Database = {
           id?: string
           id_number?: string
           overdraft?: number
+          parent_id?: string | null
           pending?: number
           phone?: string
           username?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "profiles_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       user_roles: {
         Row: {
@@ -91,7 +102,12 @@ export type Database = {
       }
     }
     Enums: {
-      app_role: "admin" | "user"
+      app_role:
+        | "admin"
+        | "user"
+        | "menaxher"
+        | "nen_menaxher"
+        | "menaxher_fundor"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -219,7 +235,13 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      app_role: ["admin", "user"],
+      app_role: [
+        "admin",
+        "user",
+        "menaxher",
+        "nen_menaxher",
+        "menaxher_fundor",
+      ],
     },
   },
 } as const

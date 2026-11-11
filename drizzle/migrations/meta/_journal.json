@@ -8,6 +8,13 @@
       "when": 1794364162940,
       "tag": "0000_profiles_roles",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1794364170996,
+      "tag": "0001_manager_types",
+      "breakpoints": true
     }
   ]
 }
