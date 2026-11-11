@@ -10,33 +10,204 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as SetupRouteImport } from './routes/setup'
+import { Route as AuthenticatedBalancaRouteImport } from './routes/_authenticated/balanca'
+import { Route as AuthenticatedBiletatRouteImport } from './routes/_authenticated/biletat'
+import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedGaraBingoKenoRouteImport } from './routes/_authenticated/gara-bingo-keno'
+import { Route as AuthenticatedKazinoRouteImport } from './routes/_authenticated/kazino'
+import { Route as AuthenticatedLiveRouteImport } from './routes/_authenticated/live'
+import { Route as AuthenticatedRngGamesRouteImport } from './routes/_authenticated/rng-games'
+import { Route as AuthenticatedSpin2winRouteImport } from './routes/_authenticated/spin2win'
+import { Route as AuthenticatedSportRouteImport } from './routes/_authenticated/sport'
+import { Route as AuthenticatedUsersRouteImport } from './routes/_authenticated/users'
+import { Route as AuthenticatedVirtualsRouteImport } from './routes/_authenticated/virtuals'
+import { Route as ApiPublicJobsSettleBetsRouteImport } from './routes/api/public/jobs/settle-bets'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SetupRoute = SetupRouteImport.update({
+  id: '/setup',
+  path: '/setup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedBalancaRoute = AuthenticatedBalancaRouteImport.update({
+  id: '/balanca',
+  path: '/balanca',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedBiletatRoute = AuthenticatedBiletatRouteImport.update({
+  id: '/biletat',
+  path: '/biletat',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedGaraBingoKenoRoute =
+  AuthenticatedGaraBingoKenoRouteImport.update({
+    id: '/gara-bingo-keno',
+    path: '/gara-bingo-keno',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedKazinoRoute = AuthenticatedKazinoRouteImport.update({
+  id: '/kazino',
+  path: '/kazino',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedLiveRoute = AuthenticatedLiveRouteImport.update({
+  id: '/live',
+  path: '/live',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedRngGamesRoute = AuthenticatedRngGamesRouteImport.update({
+  id: '/rng-games',
+  path: '/rng-games',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedSpin2winRoute = AuthenticatedSpin2winRouteImport.update({
+  id: '/spin2win',
+  path: '/spin2win',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedSportRoute = AuthenticatedSportRouteImport.update({
+  id: '/sport',
+  path: '/sport',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedUsersRoute = AuthenticatedUsersRouteImport.update({
+  id: '/users',
+  path: '/users',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedVirtualsRoute = AuthenticatedVirtualsRouteImport.update({
+  id: '/virtuals',
+  path: '/virtuals',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const ApiPublicJobsSettleBetsRoute = ApiPublicJobsSettleBetsRouteImport.update({
+  id: '/api/public/jobs/settle-bets',
+  path: '/api/public/jobs/settle-bets',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/setup': typeof SetupRoute
+  '/balanca': typeof AuthenticatedBalancaRoute
+  '/biletat': typeof AuthenticatedBiletatRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
+  '/gara-bingo-keno': typeof AuthenticatedGaraBingoKenoRoute
+  '/kazino': typeof AuthenticatedKazinoRoute
+  '/live': typeof AuthenticatedLiveRoute
+  '/rng-games': typeof AuthenticatedRngGamesRoute
+  '/spin2win': typeof AuthenticatedSpin2winRoute
+  '/sport': typeof AuthenticatedSportRoute
+  '/users': typeof AuthenticatedUsersRoute
+  '/virtuals': typeof AuthenticatedVirtualsRoute
+  '/api/public/jobs/settle-bets': typeof ApiPublicJobsSettleBetsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/setup': typeof SetupRoute
+  '/balanca': typeof AuthenticatedBalancaRoute
+  '/biletat': typeof AuthenticatedBiletatRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
+  '/gara-bingo-keno': typeof AuthenticatedGaraBingoKenoRoute
+  '/kazino': typeof AuthenticatedKazinoRoute
+  '/live': typeof AuthenticatedLiveRoute
+  '/rng-games': typeof AuthenticatedRngGamesRoute
+  '/spin2win': typeof AuthenticatedSpin2winRoute
+  '/sport': typeof AuthenticatedSportRoute
+  '/users': typeof AuthenticatedUsersRoute
+  '/virtuals': typeof AuthenticatedVirtualsRoute
+  '/api/public/jobs/settle-bets': typeof ApiPublicJobsSettleBetsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/setup': typeof SetupRoute
+  '/_authenticated/balanca': typeof AuthenticatedBalancaRoute
+  '/_authenticated/biletat': typeof AuthenticatedBiletatRoute
+  '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/gara-bingo-keno': typeof AuthenticatedGaraBingoKenoRoute
+  '/_authenticated/kazino': typeof AuthenticatedKazinoRoute
+  '/_authenticated/live': typeof AuthenticatedLiveRoute
+  '/_authenticated/rng-games': typeof AuthenticatedRngGamesRoute
+  '/_authenticated/spin2win': typeof AuthenticatedSpin2winRoute
+  '/_authenticated/sport': typeof AuthenticatedSportRoute
+  '/_authenticated/users': typeof AuthenticatedUsersRoute
+  '/_authenticated/virtuals': typeof AuthenticatedVirtualsRoute
+  '/api/public/jobs/settle-bets': typeof ApiPublicJobsSettleBetsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/setup'
+    | '/balanca'
+    | '/biletat'
+    | '/dashboard'
+    | '/gara-bingo-keno'
+    | '/kazino'
+    | '/live'
+    | '/rng-games'
+    | '/spin2win'
+    | '/sport'
+    | '/users'
+    | '/virtuals'
+    | '/api/public/jobs/settle-bets'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/setup'
+    | '/balanca'
+    | '/biletat'
+    | '/dashboard'
+    | '/gara-bingo-keno'
+    | '/kazino'
+    | '/live'
+    | '/rng-games'
+    | '/spin2win'
+    | '/sport'
+    | '/users'
+    | '/virtuals'
+    | '/api/public/jobs/settle-bets'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/setup'
+    | '/_authenticated/balanca'
+    | '/_authenticated/biletat'
+    | '/_authenticated/dashboard'
+    | '/_authenticated/gara-bingo-keno'
+    | '/_authenticated/kazino'
+    | '/_authenticated/live'
+    | '/_authenticated/rng-games'
+    | '/_authenticated/spin2win'
+    | '/_authenticated/sport'
+    | '/_authenticated/users'
+    | '/_authenticated/virtuals'
+    | '/api/public/jobs/settle-bets'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  SetupRoute: typeof SetupRoute
+  ApiPublicJobsSettleBetsRoute: typeof ApiPublicJobsSettleBetsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +219,143 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/setup': {
+      id: '/setup'
+      path: '/setup'
+      fullPath: '/setup'
+      preLoaderRoute: typeof SetupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/balanca': {
+      id: '/_authenticated/balanca'
+      path: '/balanca'
+      fullPath: '/balanca'
+      preLoaderRoute: typeof AuthenticatedBalancaRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/biletat': {
+      id: '/_authenticated/biletat'
+      path: '/biletat'
+      fullPath: '/biletat'
+      preLoaderRoute: typeof AuthenticatedBiletatRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/dashboard': {
+      id: '/_authenticated/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/gara-bingo-keno': {
+      id: '/_authenticated/gara-bingo-keno'
+      path: '/gara-bingo-keno'
+      fullPath: '/gara-bingo-keno'
+      preLoaderRoute: typeof AuthenticatedGaraBingoKenoRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/kazino': {
+      id: '/_authenticated/kazino'
+      path: '/kazino'
+      fullPath: '/kazino'
+      preLoaderRoute: typeof AuthenticatedKazinoRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/live': {
+      id: '/_authenticated/live'
+      path: '/live'
+      fullPath: '/live'
+      preLoaderRoute: typeof AuthenticatedLiveRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/rng-games': {
+      id: '/_authenticated/rng-games'
+      path: '/rng-games'
+      fullPath: '/rng-games'
+      preLoaderRoute: typeof AuthenticatedRngGamesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/spin2win': {
+      id: '/_authenticated/spin2win'
+      path: '/spin2win'
+      fullPath: '/spin2win'
+      preLoaderRoute: typeof AuthenticatedSpin2winRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/sport': {
+      id: '/_authenticated/sport'
+      path: '/sport'
+      fullPath: '/sport'
+      preLoaderRoute: typeof AuthenticatedSportRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/users': {
+      id: '/_authenticated/users'
+      path: '/users'
+      fullPath: '/users'
+      preLoaderRoute: typeof AuthenticatedUsersRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/virtuals': {
+      id: '/_authenticated/virtuals'
+      path: '/virtuals'
+      fullPath: '/virtuals'
+      preLoaderRoute: typeof AuthenticatedVirtualsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/api/public/jobs/settle-bets': {
+      id: '/api/public/jobs/settle-bets'
+      path: '/api/public/jobs/settle-bets'
+      fullPath: '/api/public/jobs/settle-bets'
+      preLoaderRoute: typeof ApiPublicJobsSettleBetsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedBalancaRoute: typeof AuthenticatedBalancaRoute
+  AuthenticatedBiletatRoute: typeof AuthenticatedBiletatRoute
+  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedGaraBingoKenoRoute: typeof AuthenticatedGaraBingoKenoRoute
+  AuthenticatedKazinoRoute: typeof AuthenticatedKazinoRoute
+  AuthenticatedLiveRoute: typeof AuthenticatedLiveRoute
+  AuthenticatedRngGamesRoute: typeof AuthenticatedRngGamesRoute
+  AuthenticatedSpin2winRoute: typeof AuthenticatedSpin2winRoute
+  AuthenticatedSportRoute: typeof AuthenticatedSportRoute
+  AuthenticatedUsersRoute: typeof AuthenticatedUsersRoute
+  AuthenticatedVirtualsRoute: typeof AuthenticatedVirtualsRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedBalancaRoute: AuthenticatedBalancaRoute,
+  AuthenticatedBiletatRoute: AuthenticatedBiletatRoute,
+  AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedGaraBingoKenoRoute: AuthenticatedGaraBingoKenoRoute,
+  AuthenticatedKazinoRoute: AuthenticatedKazinoRoute,
+  AuthenticatedLiveRoute: AuthenticatedLiveRoute,
+  AuthenticatedRngGamesRoute: AuthenticatedRngGamesRoute,
+  AuthenticatedSpin2winRoute: AuthenticatedSpin2winRoute,
+  AuthenticatedSportRoute: AuthenticatedSportRoute,
+  AuthenticatedUsersRoute: AuthenticatedUsersRoute,
+  AuthenticatedVirtualsRoute: AuthenticatedVirtualsRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  SetupRoute: SetupRoute,
+  ApiPublicJobsSettleBetsRoute: ApiPublicJobsSettleBetsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
