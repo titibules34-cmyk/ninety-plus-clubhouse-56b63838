@@ -15,6 +15,13 @@
       "when": 1794364170996,
       "tag": "0001_manager_types",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1794364179658,
+      "tag": "0002_hierarchy_status",
+      "breakpoints": true
     }
   ]
 }

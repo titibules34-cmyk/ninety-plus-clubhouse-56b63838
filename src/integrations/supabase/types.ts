@@ -28,6 +28,7 @@ export type Database = {
           parent_id: string | null
           pending: number
           phone: string
+          status: Database["public"]["Enums"]["account_status"]
           username: string
         }
         Insert: {
@@ -43,6 +44,7 @@ export type Database = {
           parent_id?: string | null
           pending?: number
           phone?: string
+          status?: Database["public"]["Enums"]["account_status"]
           username: string
         }
         Update: {
@@ -58,6 +60,7 @@ export type Database = {
           parent_id?: string | null
           pending?: number
           phone?: string
+          status?: Database["public"]["Enums"]["account_status"]
           username?: string
         }
         Relationships: [
@@ -100,8 +103,13 @@ export type Database = {
         }
         Returns: boolean
       }
+      is_ancestor: {
+        Args: { _ancestor: string; _node: string }
+        Returns: boolean
+      }
     }
     Enums: {
+      account_status: "aktiv" | "bllokuar" | "mbyllur"
       app_role:
         | "admin"
         | "user"
@@ -235,6 +243,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      account_status: ["aktiv", "bllokuar", "mbyllur"],
       app_role: [
         "admin",
         "user",
