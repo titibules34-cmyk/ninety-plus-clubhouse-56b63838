@@ -14,6 +14,133 @@ export type Database = {
   }
   public: {
     Tables: {
+      bet_selections: {
+        Row: {
+          away_score: number | null
+          away_team: string
+          bet_id: string
+          commence_time: string
+          event_id: string
+          home_score: number | null
+          home_team: string
+          id: string
+          market: string
+          odds: number
+          pick: string
+          point: number | null
+          result: Database["public"]["Enums"]["bet_status"]
+          sport_key: string
+          sport_title: string
+        }
+        Insert: {
+          away_score?: number | null
+          away_team: string
+          bet_id: string
+          commence_time: string
+          event_id: string
+          home_score?: number | null
+          home_team: string
+          id?: string
+          market: string
+          odds: number
+          pick: string
+          point?: number | null
+          result?: Database["public"]["Enums"]["bet_status"]
+          sport_key: string
+          sport_title?: string
+        }
+        Update: {
+          away_score?: number | null
+          away_team?: string
+          bet_id?: string
+          commence_time?: string
+          event_id?: string
+          home_score?: number | null
+          home_team?: string
+          id?: string
+          market?: string
+          odds?: number
+          pick?: string
+          point?: number | null
+          result?: Database["public"]["Enums"]["bet_status"]
+          sport_key?: string
+          sport_title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "bet_selections_bet_id_fkey"
+            columns: ["bet_id"]
+            isOneToOne: false
+            referencedRelation: "bets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      bets: {
+        Row: {
+          code: string
+          created_at: string
+          id: string
+          payout: number
+          potential_win: number
+          settled_at: string | null
+          stake: number
+          status: Database["public"]["Enums"]["bet_status"]
+          total_odds: number
+          user_id: string
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          id?: string
+          payout?: number
+          potential_win: number
+          settled_at?: string | null
+          stake: number
+          status?: Database["public"]["Enums"]["bet_status"]
+          total_odds: number
+          user_id: string
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          id?: string
+          payout?: number
+          potential_win?: number
+          settled_at?: string | null
+          stake?: number
+          status?: Database["public"]["Enums"]["bet_status"]
+          total_odds?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "bets_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      odds_cache: {
+        Row: {
+          cache_key: string
+          data: Json
+          fetched_at: string
+        }
+        Insert: {
+          cache_key: string
+          data: Json
+          fetched_at?: string
+        }
+        Update: {
+          cache_key?: string
+          data?: Json
+          fetched_at?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           address: string
@@ -107,6 +234,19 @@ export type Database = {
         Args: { _ancestor: string; _node: string }
         Returns: boolean
       }
+      place_bet: {
+        Args: {
+          _selections: Json
+          _stake: number
+          _total_odds: number
+          _user_id: string
+        }
+        Returns: {
+          bet_code: string
+          bet_id: string
+        }[]
+      }
+      settle_selections: { Args: { _results: Json }; Returns: number }
     }
     Enums: {
       account_status: "aktiv" | "bllokuar" | "mbyllur"
@@ -116,6 +256,7 @@ export type Database = {
         | "menaxher"
         | "nen_menaxher"
         | "menaxher_fundor"
+      bet_status: "pending" | "won" | "lost" | "void"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -251,6 +392,7 @@ export const Constants = {
         "nen_menaxher",
         "menaxher_fundor",
       ],
+      bet_status: ["pending", "won", "lost", "void"],
     },
   },
 } as const
