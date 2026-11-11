@@ -38,8 +38,8 @@
   "capability": "external provider: The Odds API",
   "source": "connector udc_the_odds_api via gateway",
   "outcome": "preserve",
-  "status": "pending",
-  "next_action": "user declined connector card; needs The Odds API key connected, then point odds.server.ts at the new connector id/env var"
+  "status": "verified",
+  "next_action": "connected; sports, league odds and a placed bet verified"
  },
  {
   "capability": "schedule",
@@ -59,8 +59,8 @@
   "capability": "secrets",
   "source": "LOVABLE_API_KEY, UDC_THE_ODDS_API_API_KEY, LOVABLE_CRON_SECRET",
   "outcome": "preserve",
-  "status": "pending",
-  "next_action": "odds connection key"
+  "status": "verified",
+  "next_action": ""
  },
  {
   "capability": "cutover",
@@ -74,6 +74,6 @@
   "source": "setup, login, dashboard, sport, place bet, tickets",
   "outcome": "verify",
   "status": "verified",
-  "next_action": "setup, login, dashboard, create player, player Sport page; odds and bet placement blocked on odds connection; test accounts removed"
+  "next_action": "setup, login, create player, odds load, bet placed and stake held; automatic payout not exercised yet; test accounts removed"
  }
 ]
