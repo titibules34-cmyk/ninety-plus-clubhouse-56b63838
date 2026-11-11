@@ -28,3 +28,11 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+
+- Accounts sign in by username; `src/lib/username.ts` maps each username to a synthetic auth email, and only admins (server functions) create accounts — there is no public signup page.
+- Roles live in `user_roles` and are checked with `has_role`; balances and profile fields are admin-editable only (RLS).
+- Odds come from The Odds API through the connector gateway (`src/lib/odds.server.ts`), cached in `odds_cache` to save provider credits; displayed prices are the average across bookmakers (`normalizeEvent`).
+- Money moves only inside SECURITY DEFINER SQL functions (`place_bet`, `settle_selections`) callable by service_role; server functions re-price picks from the cache before calling them. A placed stake is held in `profiles.pending` until settlement.
+- Settlement runs from the hourly managed schedule hitting `/api/public/jobs/settle-bets` (cron-authenticated).
