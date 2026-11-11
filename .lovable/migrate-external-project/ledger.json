@@ -1,0 +1,13 @@
+[
+ {"capability":"code","source":"github titibules34-cmyk/ninety-plus-clubhouse (Lovable TanStack app)","outcome":"migrate","status":"in_progress","next_action":"copy app code"},
+ {"capability":"schema","source":"drizzle/migrations 0000-0003 (profiles, user_roles, odds_cache, bets, bet_selections, place_bet, settle_selections)","outcome":"migrate","status":"pending","next_action":"apply to Lovable Cloud"},
+ {"capability":"records","source":"original Lovable Cloud backend (profiles, user_roles, bets, bet_selections)","outcome":"migrate","status":"pending","next_action":"user exports CSVs or skips"},
+ {"capability":"auth identities","source":"username+password accounts (synthetic emails), admin-created only","outcome":"migrate","status":"pending","next_action":"first admin via /setup; old accounts need export or re-creation"},
+ {"capability":"authorization","source":"user_roles + has_role / is_ancestor RLS","outcome":"migrate","status":"pending","next_action":"apply with schema"},
+ {"capability":"external provider: The Odds API","source":"connector udc_the_odds_api via gateway","outcome":"preserve","status":"pending","next_action":"link connection in this project"},
+ {"capability":"schedule","source":"hourly managed schedule -> /api/public/jobs/settle-bets (LOVABLE_CRON_SECRET)","outcome":"preserve","status":"pending","next_action":"recreate hourly schedule"},
+ {"capability":"public endpoints","source":"/api/public/jobs/settle-bets (cron-authenticated)","outcome":"preserve","status":"pending","next_action":"copy route"},
+ {"capability":"secrets","source":"LOVABLE_API_KEY, UDC_THE_ODDS_API_API_KEY, LOVABLE_CRON_SECRET","outcome":"preserve","status":"pending","next_action":"provided by connector + schedule"},
+ {"capability":"cutover","source":"old project stays live until user switches","outcome":"none","status":"pending","next_action":""},
+ {"capability":"verification","source":"setup, login, dashboard, sport, place bet, tickets","outcome":"verify","status":"pending","next_action":""}
+]
