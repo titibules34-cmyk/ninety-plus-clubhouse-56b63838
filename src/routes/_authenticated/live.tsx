@@ -41,7 +41,7 @@ function Live() {
   // Prices are refreshed on the server at most once a minute; poll every 30s to pick that up.
   const { data, isLoading } = useQuery({ queryKey: ["live"], queryFn: () => fetchLive(), refetchInterval: 30_000, staleTime: 20_000 });
   const all = (data?.matches ?? []) as LiveMatch[];
-  const scores = data?.scores ?? {};
+  const scores: Record<string, { home: string; away: string }> = data?.scores ?? {};
   const [now, setNow] = useState(() => Date.now());
   useEffect(() => { const t = setInterval(() => setNow(Date.now()), 30_000); return () => clearInterval(t); }, []);
 
