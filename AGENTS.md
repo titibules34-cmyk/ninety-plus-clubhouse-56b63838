@@ -35,4 +35,5 @@ use the editor.
 - Roles live in `user_roles` and are checked with `has_role`; balances and profile fields are admin-editable only (RLS).
 - Odds come from The Odds API through the connector gateway (`src/lib/odds.server.ts`), cached in `odds_cache` to save provider credits; displayed prices are the average across bookmakers (`normalizeEvent`).
 - Money moves only inside SECURITY DEFINER SQL functions (`place_bet`, `settle_selections`) callable by service_role; server functions re-price picks from the cache before calling them. A placed stake is held in `profiles.pending` until settlement.
+- Live (in-play) odds use one all-sports "upcoming" call cached for 60s and never served older than 3 min; live picks are re-priced from that cache, not the league cache.
 - Settlement runs from the hourly managed schedule hitting `/api/public/jobs/settle-bets` (cron-authenticated).
