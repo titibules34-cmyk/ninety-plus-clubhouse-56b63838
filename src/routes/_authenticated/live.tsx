@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { useEffect, useMemo, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { PlayerShell, fmtMoney } from "@/components/PlayerShell";
 import { getLiveMatches, placeBet } from "@/lib/sport.functions";
 import { MAX_PICKS, MIN_STAKE, priceFor, totalOdds, type MatchOdds, type Pick, type SlipPick } from "@/lib/odds";
@@ -38,12 +38,51 @@ function Live() {
   const qc = useQueryClient();
   const { data: me } = useMe();
 
-  // Prices are refreshed on the server at most once a minute; poll every 30s to pick that up.
-  const { data, isLoading } = useQuery({ queryKey: ["live"], queryFn: () => fetchLive(), refetchInterval: 30_000, staleTime: 20_000 });
+  // The server refreshes prices and scores every 30s; poll often so changes show up right away.
+  const { data, isLoading, dataUpdatedAt, isFetching } = useQuery({ queryKey: ["live"], queryFn: () => fetchLive(), refetchInterval: 10_000, staleTime: 5_000 });
   const all = (data?.matches ?? []) as LiveMatch[];
   const scores: Record<string, { home: string; away: string }> = data?.scores ?? {};
   const [now, setNow] = useState(() => Date.now());
-  useEffect(() => { const t = setInterval(() => setNow(Date.now()), 30_000); return () => clearInterval(t); }, []);
+  useEffect(() => { const t = setInterval(() => setNow(Date.now()), 1_000); return () => clearInterval(t); }, []);
+
+  // Flash odds that moved (up/down) and scores that changed, like a bookmaker's live board.
+  const prev = useRef<Map<string, number | string>>(new Map());
+  const [flash, setFlash] = useState<Record<string, "up" | "down" | "score">>({});
+  useEffect(() => {
+    if (!data) return;
+    const next = new Map<string, number | string>();
+    const changed: Record<string, "up" | "down" | "score"> = {};
+    const first = prev.current.size === 0;
+    for (const m of all) {
+      for (const p of ["home", "draw", "away", "over", "under"] as Pick[]) {
+        const price = priceFor(m, p);
+        if (!price) continue;
+        const key = `${m.id}:${p}`;
+        next.set(key, price.odds);
+        const before = prev.current.get(key);
+        if (!first && typeof before === "number" && before !== price.odds) changed[key] = price.odds > before ? "up" : "down";
+      }
+      const sc = scores[m.id];
+      if (sc) {
+        for (const side of ["home", "away"] as const) {
+          const key = `${m.id}:score:${side}`;
+          next.set(key, sc[side]);
+          const before = prev.current.get(key);
+          if (!first && before != null && before !== sc[side]) changed[key] = "score";
+        }
+      }
+    }
+    prev.current = next;
+    if (Object.keys(changed).length) {
+      setFlash((f) => ({ ...f, ...changed }));
+      setTimeout(() => setFlash((f) => {
+        const copy = { ...f };
+        for (const k of Object.keys(changed)) if (copy[k] === changed[k]) delete copy[k];
+        return copy;
+      }), 5_000);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dataUpdatedAt]);
 
   const groups = useMemo(() => {
     const count = new Map<string, number>();
@@ -137,8 +176,8 @@ function Live() {
     const price = priceFor(m, p);
     return (
       <td className="pl-odd">
-        <button className={isPicked(m.id, p) ? "is-picked" : ""} disabled={!price} onClick={() => toggle(m, p)}>
-          {price ? price.odds.toFixed(2) : "-"}
+        <button className={`${isPicked(m.id, p) ? "is-picked" : ""} ${flash[`${m.id}:${p}`] ? `is-${flash[`${m.id}:${p}`]}` : ""}`} disabled={!price} onClick={() => toggle(m, p)}>
+          {price ? price.odds.toFixed(2) : <i className="material-icons pl-lock" aria-label="Pezulluar">lock</i>}
         </button>
       </td>
     );
@@ -183,7 +222,12 @@ function Live() {
             </colgroup>
             <thead>
               <tr>
-                <th className="title" colSpan={3}>LIVE {groupLabel && `— ${groupLabel}`}</th>
+                <th className="title" colSpan={3}>
+                  LIVE {groupLabel && `— ${groupLabel}`}
+                  {dataUpdatedAt > 0 && (
+                    <span className="pl-live-sync"><span className={`pl-live-dot ${isFetching ? "is-busy" : ""}`} />Përditësuar {Math.max(0, Math.round((now - dataUpdatedAt) / 1000))}s më parë</span>
+                  )}
+                </th>
                 <th colSpan={3}>1x2<div className="sub"><span>1</span><span>X</span><span>2</span></div></th>
                 <th colSpan={3}>TG_L/P<div className="sub"><span>sbv</span><span>Lart</span><span>Poshtë</span></div></th>
               </tr>
@@ -198,9 +242,12 @@ function Live() {
                     const sc = scores[m.id];
                     return (
                       <tr key={m.id} className="pl-match">
-                        <td className="pl-when"><span style={{ color: "var(--pl-live, var(--destructive))" }}>● LIVE</span><br />{minutesIn(m.commenceTime, now)}'</td>
+                        <td className="pl-when"><span className="pl-live-tag"><span className="pl-live-dot" />LIVE</span><br />{minutesIn(m.commenceTime, now)}'</td>
                         <td className="pl-teams">{m.home}<br />{m.away}</td>
-                        <td style={{ textAlign: "center", fontWeight: 700, fontSize: 18, lineHeight: 1.4, color: "var(--pl-odd)" }}>{sc ? <>{sc.home}<br />{sc.away}</> : "-"}</td>
+                        <td className="pl-score">{sc ? <>
+                          <span className={flash[`${m.id}:score:home`] ? "is-score" : ""}>{sc.home}</span><br />
+                          <span className={flash[`${m.id}:score:away`] ? "is-score" : ""}>{sc.away}</span>
+                        </> : "-"}</td>
                         {cell(m, "home")}{cell(m, "draw")}{cell(m, "away")}
                         <td className="pl-line">{m.totals ? m.totals.point.toFixed(1) : "-"}</td>
                         {cell(m, "over")}{cell(m, "under")}
