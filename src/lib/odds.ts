@@ -36,6 +36,7 @@ export type SlipPick = {
   pick: Pick;
   odds: number;
   point: number | null;
+  live?: boolean;
 };
 
 export const marketOf = (pick: Pick): Market => (pick === "over" || pick === "under" ? "totals" : "h2h");
@@ -113,3 +114,11 @@ export function gradePick(pick: Pick, point: number | null, homeScore: number, a
 
 export const MAX_PICKS = 20;
 export const MIN_STAKE = 1;
+
+/** A game counts as live once it has kicked off, for up to 4 hours, while bookmakers still quote a price. */
+export const LIVE_WINDOW_MS = 4 * 60 * 60 * 1000;
+export function isLive(m: MatchOdds, now: number): boolean {
+  const start = new Date(m.commenceTime).getTime();
+  const hasPrice = m.h2h.home != null || m.h2h.away != null || m.totals != null;
+  return start <= now && now - start < LIVE_WINDOW_MS && hasPrice;
+}
