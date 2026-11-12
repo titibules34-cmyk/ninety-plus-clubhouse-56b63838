@@ -51,10 +51,10 @@ export function getLeagueOddsCached(sportKey: string): Promise<MatchOdds[]> {
   });
 }
 
-/** In-play prices move fast: refreshed every minute while someone is watching, never served older than 3 minutes. */
-export const LIVE_TTL_MS = 60 * 1000;
+/** In-play prices move fast: refreshed every 30s while someone is watching, never served older than 3 minutes. */
+export const LIVE_TTL_MS = 30 * 1000;
 const LIVE_MAX_STALE_MS = 3 * 60 * 1000;
-const SCORES_TTL_MS = 2 * 60 * 1000;
+const SCORES_TTL_MS = 30 * 1000;
 
 export function getLiveOddsCached(): Promise<MatchOdds[]> {
   return cached("live", LIVE_TTL_MS, async () => {
