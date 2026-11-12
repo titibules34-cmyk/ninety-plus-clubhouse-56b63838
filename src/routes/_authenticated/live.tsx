@@ -75,12 +75,11 @@ function Live() {
     prev.current = next;
     if (Object.keys(changed).length) {
       setFlash((f) => ({ ...f, ...changed }));
-      const t = setTimeout(() => setFlash((f) => {
+      setTimeout(() => setFlash((f) => {
         const copy = { ...f };
         for (const k of Object.keys(changed)) if (copy[k] === changed[k]) delete copy[k];
         return copy;
       }), 5_000);
-      return () => clearTimeout(t);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataUpdatedAt]);
