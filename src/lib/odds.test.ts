@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { gradePick, normalizeEvent, totalOdds } from "./odds";
+import { gradePick, isLive, normalizeEvent, totalOdds } from "./odds";
 
 describe("ticket odds", () => {
   it("multiplies the picks", () => {
@@ -43,5 +43,18 @@ describe("normalizing provider odds", () => {
     });
     expect(m.h2h).toEqual({ home: 2.1, draw: 3.5, away: 3.1 });
     expect(m.totals).toEqual({ point: 2.5, over: 1.85, under: 1.95 });
+  });
+});
+
+describe("live games", () => {
+  const base = { id: "x", sportKey: "soccer_epl", sportTitle: "EPL", home: "A", away: "B", h2h: { home: 2, draw: 3, away: 4 }, totals: null };
+  const now = Date.parse("2026-11-12T12:00:00Z");
+  it("counts a game as live from kick-off for up to 4 hours", () => {
+    expect(isLive({ ...base, commenceTime: "2026-11-12T12:05:00Z" }, now)).toBe(false);
+    expect(isLive({ ...base, commenceTime: "2026-11-12T11:00:00Z" }, now)).toBe(true);
+    expect(isLive({ ...base, commenceTime: "2026-11-12T07:59:00Z" }, now)).toBe(false);
+  });
+  it("hides started games nobody prices anymore", () => {
+    expect(isLive({ ...base, commenceTime: "2026-11-12T11:00:00Z", h2h: { home: null, draw: null, away: null } }, now)).toBe(false);
   });
 });
