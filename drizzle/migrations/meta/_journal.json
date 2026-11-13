@@ -29,6 +29,13 @@
       "when": 1794364202594,
       "tag": "0003_betting",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1794536047722,
+      "tag": "0004_casino",
+      "breakpoints": true
     }
   ]
 }

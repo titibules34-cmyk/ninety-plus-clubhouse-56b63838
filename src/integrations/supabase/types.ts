@@ -123,6 +123,73 @@ export type Database = {
           },
         ]
       }
+      casino_rounds: {
+        Row: {
+          created_at: string
+          game: Database["public"]["Enums"]["casino_game"]
+          id: string
+          payout: number
+          result: Json
+          settled_at: string | null
+          stake: number
+          status: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          game: Database["public"]["Enums"]["casino_game"]
+          id?: string
+          payout?: number
+          result?: Json
+          settled_at?: string | null
+          stake: number
+          status?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          game?: Database["public"]["Enums"]["casino_game"]
+          id?: string
+          payout?: number
+          result?: Json
+          settled_at?: string | null
+          stake?: number
+          status?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "casino_rounds_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      casino_secrets: {
+        Row: {
+          round_id: string
+          state: Json
+        }
+        Insert: {
+          round_id: string
+          state: Json
+        }
+        Update: {
+          round_id?: string
+          state?: Json
+        }
+        Relationships: [
+          {
+            foreignKeyName: "casino_secrets_round_id_fkey"
+            columns: ["round_id"]
+            isOneToOne: true
+            referencedRelation: "casino_rounds"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       odds_cache: {
         Row: {
           cache_key: string
@@ -223,6 +290,38 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      casino_instant: {
+        Args: {
+          _game: Database["public"]["Enums"]["casino_game"]
+          _payout: number
+          _result: Json
+          _stake: number
+          _user_id: string
+        }
+        Returns: string
+      }
+      casino_open: {
+        Args: {
+          _game: Database["public"]["Enums"]["casino_game"]
+          _result: Json
+          _stake: number
+          _state: Json
+          _user_id: string
+        }
+        Returns: string
+      }
+      casino_raise: {
+        Args: { _extra: number; _result: Json; _round_id: string; _state: Json }
+        Returns: undefined
+      }
+      casino_settle: {
+        Args: { _payout: number; _result: Json; _round_id: string }
+        Returns: boolean
+      }
+      casino_update: {
+        Args: { _result: Json; _round_id: string; _state: Json }
+        Returns: undefined
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -257,6 +356,7 @@ export type Database = {
         | "nen_menaxher"
         | "menaxher_fundor"
       bet_status: "pending" | "won" | "lost" | "void"
+      casino_game: "slots" | "roulette" | "blackjack" | "crash"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -393,6 +493,7 @@ export const Constants = {
         "menaxher_fundor",
       ],
       bet_status: ["pending", "won", "lost", "void"],
+      casino_game: ["slots", "roulette", "blackjack", "crash"],
     },
   },
 } as const
