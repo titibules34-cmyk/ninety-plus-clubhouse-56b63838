@@ -16,13 +16,16 @@ import { Route as AuthenticatedBalancaRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedBiletatRouteImport } from './routes/_authenticated/biletat'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedGaraBingoKenoRouteImport } from './routes/_authenticated/gara-bingo-keno'
-import { Route as AuthenticatedKazinoRouteImport } from './routes/_authenticated/kazino'
 import { Route as AuthenticatedLiveRouteImport } from './routes/_authenticated/live'
 import { Route as AuthenticatedRngGamesRouteImport } from './routes/_authenticated/rng-games'
 import { Route as AuthenticatedSpin2winRouteImport } from './routes/_authenticated/spin2win'
 import { Route as AuthenticatedSportRouteImport } from './routes/_authenticated/sport'
 import { Route as AuthenticatedUsersRouteImport } from './routes/_authenticated/users'
 import { Route as AuthenticatedVirtualsRouteImport } from './routes/_authenticated/virtuals'
+import { Route as AuthenticatedKazinoIndexRouteImport } from './routes/_authenticated/kazino/index'
+import { Route as AuthenticatedKazinoBlackjackRouteImport } from './routes/_authenticated/kazino/blackjack'
+import { Route as AuthenticatedKazinoRouletteRouteImport } from './routes/_authenticated/kazino/roulette'
+import { Route as AuthenticatedKazinoSlotsRouteImport } from './routes/_authenticated/kazino/slots'
 import { Route as ApiPublicJobsSettleBetsRouteImport } from './routes/api/public/jobs/settle-bets'
 
 const IndexRoute = IndexRouteImport.update({
@@ -60,11 +63,6 @@ const AuthenticatedGaraBingoKenoRoute =
     path: '/gara-bingo-keno',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
-const AuthenticatedKazinoRoute = AuthenticatedKazinoRouteImport.update({
-  id: '/kazino',
-  path: '/kazino',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
 const AuthenticatedLiveRoute = AuthenticatedLiveRouteImport.update({
   id: '/live',
   path: '/live',
@@ -95,6 +93,30 @@ const AuthenticatedVirtualsRoute = AuthenticatedVirtualsRouteImport.update({
   path: '/virtuals',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedKazinoIndexRoute =
+  AuthenticatedKazinoIndexRouteImport.update({
+    id: '/kazino/',
+    path: '/kazino/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedKazinoBlackjackRoute =
+  AuthenticatedKazinoBlackjackRouteImport.update({
+    id: '/kazino/blackjack',
+    path: '/kazino/blackjack',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedKazinoRouletteRoute =
+  AuthenticatedKazinoRouletteRouteImport.update({
+    id: '/kazino/roulette',
+    path: '/kazino/roulette',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedKazinoSlotsRoute =
+  AuthenticatedKazinoSlotsRouteImport.update({
+    id: '/kazino/slots',
+    path: '/kazino/slots',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const ApiPublicJobsSettleBetsRoute = ApiPublicJobsSettleBetsRouteImport.update({
   id: '/api/public/jobs/settle-bets',
   path: '/api/public/jobs/settle-bets',
@@ -108,13 +130,16 @@ export interface FileRoutesByFullPath {
   '/biletat': typeof AuthenticatedBiletatRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/gara-bingo-keno': typeof AuthenticatedGaraBingoKenoRoute
-  '/kazino': typeof AuthenticatedKazinoRoute
   '/live': typeof AuthenticatedLiveRoute
   '/rng-games': typeof AuthenticatedRngGamesRoute
   '/spin2win': typeof AuthenticatedSpin2winRoute
   '/sport': typeof AuthenticatedSportRoute
   '/users': typeof AuthenticatedUsersRoute
   '/virtuals': typeof AuthenticatedVirtualsRoute
+  '/kazino/blackjack': typeof AuthenticatedKazinoBlackjackRoute
+  '/kazino/roulette': typeof AuthenticatedKazinoRouletteRoute
+  '/kazino/slots': typeof AuthenticatedKazinoSlotsRoute
+  '/kazino/': typeof AuthenticatedKazinoIndexRoute
   '/api/public/jobs/settle-bets': typeof ApiPublicJobsSettleBetsRoute
 }
 export interface FileRoutesByTo {
@@ -124,13 +149,16 @@ export interface FileRoutesByTo {
   '/biletat': typeof AuthenticatedBiletatRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/gara-bingo-keno': typeof AuthenticatedGaraBingoKenoRoute
-  '/kazino': typeof AuthenticatedKazinoRoute
   '/live': typeof AuthenticatedLiveRoute
   '/rng-games': typeof AuthenticatedRngGamesRoute
   '/spin2win': typeof AuthenticatedSpin2winRoute
   '/sport': typeof AuthenticatedSportRoute
   '/users': typeof AuthenticatedUsersRoute
   '/virtuals': typeof AuthenticatedVirtualsRoute
+  '/kazino/blackjack': typeof AuthenticatedKazinoBlackjackRoute
+  '/kazino/roulette': typeof AuthenticatedKazinoRouletteRoute
+  '/kazino/slots': typeof AuthenticatedKazinoSlotsRoute
+  '/kazino': typeof AuthenticatedKazinoIndexRoute
   '/api/public/jobs/settle-bets': typeof ApiPublicJobsSettleBetsRoute
 }
 export interface FileRoutesById {
@@ -142,13 +170,16 @@ export interface FileRoutesById {
   '/_authenticated/biletat': typeof AuthenticatedBiletatRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/gara-bingo-keno': typeof AuthenticatedGaraBingoKenoRoute
-  '/_authenticated/kazino': typeof AuthenticatedKazinoRoute
   '/_authenticated/live': typeof AuthenticatedLiveRoute
   '/_authenticated/rng-games': typeof AuthenticatedRngGamesRoute
   '/_authenticated/spin2win': typeof AuthenticatedSpin2winRoute
   '/_authenticated/sport': typeof AuthenticatedSportRoute
   '/_authenticated/users': typeof AuthenticatedUsersRoute
   '/_authenticated/virtuals': typeof AuthenticatedVirtualsRoute
+  '/_authenticated/kazino/blackjack': typeof AuthenticatedKazinoBlackjackRoute
+  '/_authenticated/kazino/roulette': typeof AuthenticatedKazinoRouletteRoute
+  '/_authenticated/kazino/slots': typeof AuthenticatedKazinoSlotsRoute
+  '/_authenticated/kazino/': typeof AuthenticatedKazinoIndexRoute
   '/api/public/jobs/settle-bets': typeof ApiPublicJobsSettleBetsRoute
 }
 export interface FileRouteTypes {
@@ -160,13 +191,16 @@ export interface FileRouteTypes {
     | '/biletat'
     | '/dashboard'
     | '/gara-bingo-keno'
-    | '/kazino'
     | '/live'
     | '/rng-games'
     | '/spin2win'
     | '/sport'
     | '/users'
     | '/virtuals'
+    | '/kazino/blackjack'
+    | '/kazino/roulette'
+    | '/kazino/slots'
+    | '/kazino/'
     | '/api/public/jobs/settle-bets'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -176,13 +210,16 @@ export interface FileRouteTypes {
     | '/biletat'
     | '/dashboard'
     | '/gara-bingo-keno'
-    | '/kazino'
     | '/live'
     | '/rng-games'
     | '/spin2win'
     | '/sport'
     | '/users'
     | '/virtuals'
+    | '/kazino/blackjack'
+    | '/kazino/roulette'
+    | '/kazino/slots'
+    | '/kazino'
     | '/api/public/jobs/settle-bets'
   id:
     | '__root__'
@@ -193,13 +230,16 @@ export interface FileRouteTypes {
     | '/_authenticated/biletat'
     | '/_authenticated/dashboard'
     | '/_authenticated/gara-bingo-keno'
-    | '/_authenticated/kazino'
     | '/_authenticated/live'
     | '/_authenticated/rng-games'
     | '/_authenticated/spin2win'
     | '/_authenticated/sport'
     | '/_authenticated/users'
     | '/_authenticated/virtuals'
+    | '/_authenticated/kazino/blackjack'
+    | '/_authenticated/kazino/roulette'
+    | '/_authenticated/kazino/slots'
+    | '/_authenticated/kazino/'
     | '/api/public/jobs/settle-bets'
   fileRoutesById: FileRoutesById
 }
@@ -261,13 +301,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedGaraBingoKenoRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/kazino': {
-      id: '/_authenticated/kazino'
-      path: '/kazino'
-      fullPath: '/kazino'
-      preLoaderRoute: typeof AuthenticatedKazinoRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
     '/_authenticated/live': {
       id: '/_authenticated/live'
       path: '/live'
@@ -310,6 +343,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedVirtualsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/kazino/': {
+      id: '/_authenticated/kazino/'
+      path: '/kazino'
+      fullPath: '/kazino/'
+      preLoaderRoute: typeof AuthenticatedKazinoIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/kazino/blackjack': {
+      id: '/_authenticated/kazino/blackjack'
+      path: '/kazino/blackjack'
+      fullPath: '/kazino/blackjack'
+      preLoaderRoute: typeof AuthenticatedKazinoBlackjackRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/kazino/roulette': {
+      id: '/_authenticated/kazino/roulette'
+      path: '/kazino/roulette'
+      fullPath: '/kazino/roulette'
+      preLoaderRoute: typeof AuthenticatedKazinoRouletteRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/kazino/slots': {
+      id: '/_authenticated/kazino/slots'
+      path: '/kazino/slots'
+      fullPath: '/kazino/slots'
+      preLoaderRoute: typeof AuthenticatedKazinoSlotsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/api/public/jobs/settle-bets': {
       id: '/api/public/jobs/settle-bets'
       path: '/api/public/jobs/settle-bets'
@@ -325,13 +386,16 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedBiletatRoute: typeof AuthenticatedBiletatRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedGaraBingoKenoRoute: typeof AuthenticatedGaraBingoKenoRoute
-  AuthenticatedKazinoRoute: typeof AuthenticatedKazinoRoute
   AuthenticatedLiveRoute: typeof AuthenticatedLiveRoute
   AuthenticatedRngGamesRoute: typeof AuthenticatedRngGamesRoute
   AuthenticatedSpin2winRoute: typeof AuthenticatedSpin2winRoute
   AuthenticatedSportRoute: typeof AuthenticatedSportRoute
   AuthenticatedUsersRoute: typeof AuthenticatedUsersRoute
   AuthenticatedVirtualsRoute: typeof AuthenticatedVirtualsRoute
+  AuthenticatedKazinoBlackjackRoute: typeof AuthenticatedKazinoBlackjackRoute
+  AuthenticatedKazinoRouletteRoute: typeof AuthenticatedKazinoRouletteRoute
+  AuthenticatedKazinoSlotsRoute: typeof AuthenticatedKazinoSlotsRoute
+  AuthenticatedKazinoIndexRoute: typeof AuthenticatedKazinoIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
@@ -339,13 +403,16 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedBiletatRoute: AuthenticatedBiletatRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedGaraBingoKenoRoute: AuthenticatedGaraBingoKenoRoute,
-  AuthenticatedKazinoRoute: AuthenticatedKazinoRoute,
   AuthenticatedLiveRoute: AuthenticatedLiveRoute,
   AuthenticatedRngGamesRoute: AuthenticatedRngGamesRoute,
   AuthenticatedSpin2winRoute: AuthenticatedSpin2winRoute,
   AuthenticatedSportRoute: AuthenticatedSportRoute,
   AuthenticatedUsersRoute: AuthenticatedUsersRoute,
   AuthenticatedVirtualsRoute: AuthenticatedVirtualsRoute,
+  AuthenticatedKazinoBlackjackRoute: AuthenticatedKazinoBlackjackRoute,
+  AuthenticatedKazinoRouletteRoute: AuthenticatedKazinoRouletteRoute,
+  AuthenticatedKazinoSlotsRoute: AuthenticatedKazinoSlotsRoute,
+  AuthenticatedKazinoIndexRoute: AuthenticatedKazinoIndexRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
