@@ -507,7 +507,7 @@
 .cz-wheel-pointer { position: absolute; top: -6px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent; border-top: 22px solid var(--pl-gold); z-index: 2; }
 .cz-wheel { position: absolute; inset: 0; border-radius: 50%; border: 8px solid var(--pl-gold); box-shadow: 0 8px 30px oklch(0 0 0 / 50%); }
 .cz-wheel-num { position: absolute; left: 50%; top: 50%; width: 20px; margin: -9px 0 0 -10px; text-align: center; font-size: 11px; font-weight: 700; color: var(--pl-text); transform-origin: center; }
-.cz-wheel-hub { position: absolute; inset: 34%; border-radius: 50%; background: var(--pl-panel); border: 4px solid var(--pl-gold); display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 700; color: var(--pl-text); }
+.cz-wheel-hub { position: absolute; inset: 34%; z-index: 1; border-radius: 50%; background: var(--pl-panel); border: 4px solid var(--pl-gold); display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 700; color: var(--pl-text); }
 .cz-rt-side { display: flex; flex-direction: column; gap: 12px; min-width: 300px; }
 .cz-recent { display: flex; gap: 4px; flex-wrap: wrap; min-height: 32px; }
 .cz-ball { width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; color: var(--pl-text); }
