@@ -14,6 +14,51 @@ export type Database = {
   }
   public: {
     Tables: {
+      balance_transfers: {
+        Row: {
+          actor_id: string
+          amount: number
+          created_at: string
+          description: string
+          id: string
+          kind: string
+          target_id: string
+        }
+        Insert: {
+          actor_id: string
+          amount: number
+          created_at?: string
+          description?: string
+          id?: string
+          kind: string
+          target_id: string
+        }
+        Update: {
+          actor_id?: string
+          amount?: number
+          created_at?: string
+          description?: string
+          id?: string
+          kind?: string
+          target_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "balance_transfers_actor_id_fkey"
+            columns: ["actor_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "balance_transfers_target_id_fkey"
+            columns: ["target_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       bet_selections: {
         Row: {
           away_score: number | null
@@ -346,6 +391,16 @@ export type Database = {
         }[]
       }
       settle_selections: { Args: { _results: Json }; Returns: number }
+      transfer_balance: {
+        Args: {
+          _actor_id: string
+          _amount: number
+          _description: string
+          _kind: string
+          _target_id: string
+        }
+        Returns: string
+      }
     }
     Enums: {
       account_status: "aktiv" | "bllokuar" | "mbyllur"
