@@ -84,8 +84,8 @@ function Roulette() {
             {WHEEL_ORDER.map((n, i) => (
               <span key={n} className="cz-wheel-num" style={{ transform: `rotate(${i * SEG + SEG / 2}deg) translateY(-118px)` }}>{n}</span>
             ))}
-            <div className="cz-wheel-hub">{result ?? ""}</div>
           </div>
+          <div className="cz-wheel-hub">{result ?? ""}</div>
         </div>
         <div className="cz-rt-side">
           <div className="cz-recent">

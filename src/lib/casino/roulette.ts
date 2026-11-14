@@ -5,7 +5,7 @@ export const RED = new Set([1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 3
 export const colorOf = (n: number) => (n === 0 ? "green" : RED.has(n) ? "red" : "black");
 
 export type RouletteBetType = "straight" | "red" | "black" | "even" | "odd" | "low" | "high" | "dozen" | "column";
-export type RouletteBet = { type: RouletteBetType; value?: number; amount: number };
+export type RouletteBet = { type: RouletteBetType; value?: number | undefined; amount: number };
 
 /** Return per 1 Lek staked (stake included) if the bet wins. */
 export const RETURN: Record<RouletteBetType, number> = {
