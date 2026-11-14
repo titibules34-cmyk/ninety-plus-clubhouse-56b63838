@@ -77,7 +77,7 @@ async function settle(roundId: string, payout: number, result: unknown) {
 
 // ---------- Blackjack ----------
 type BjState = { deck: Card[]; player: Card[]; dealer: Card[]; doubled: boolean };
-export type BjView = { open: boolean; player: Card[]; dealer: Card[]; stake: number; doubled: boolean; outcome?: BjOutcome; payout?: number; canDouble: boolean };
+export type BjView = { open: boolean; player: Card[]; dealer: Card[]; stake: number; doubled: boolean; outcome?: BjOutcome | undefined; payout?: number | undefined; canDouble: boolean };
 
 const bjPublic = (s: BjState, stake: number, open: boolean, out?: BjOutcome, payout?: number): BjView => ({
   open, player: s.player, dealer: open ? [s.dealer[0]!] : s.dealer, stake, doubled: s.doubled,
