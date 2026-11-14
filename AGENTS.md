@@ -36,4 +36,5 @@ use the editor.
 - Odds come from The Odds API through the connector gateway (`src/lib/odds.server.ts`), cached in `odds_cache` to save provider credits; displayed prices are the average across bookmakers (`normalizeEvent`).
 - Money moves only inside SECURITY DEFINER SQL functions (`place_bet`, `settle_selections`) callable by service_role; server functions re-price picks from the cache before calling them. A placed stake is held in `profiles.pending` until settlement.
 - Live (in-play) odds use one all-sports "upcoming" call cached for 60s and never served older than 3 min; live picks are re-priced from that cache, not the league cache.
+- Casino outcomes are drawn on the server (`src/lib/casino.functions.ts`, crypto RNG); money moves only via `casino_*` SQL functions; hidden round state (card shoe, crash point) lives in `casino_secrets`, which only service_role can read.
 - Settlement runs from the hourly managed schedule hitting `/api/public/jobs/settle-bets` (cron-authenticated).
