@@ -563,3 +563,19 @@
 .cz-cashout { margin: 0 auto !important; min-width: 320px; background: var(--pl-won) !important; color: var(--pl-pick-text) !important; font-weight: 700; }
 @keyframes cz-shake { 25% { transform: translateX(-8px); } 75% { transform: translateX(8px); } }
 @media (max-width: 1100px) { .cz-layout { grid-template-columns: 1fr; } }
+
+/* Balance transfer dialog (Vepro në Balancë) */
+.bal-dlg { padding-top: 22px; }
+.bal-dlg .dlg-title { margin-bottom: 10px; }
+.bal-tabs { display: grid; grid-template-columns: 1fr 1fr; margin: 0 -30px 18px; padding: 0 0 0 0; max-width: 400px; }
+.bal-tabs button { padding: 14px 10px; font-weight: 700; font-size: 17px; letter-spacing: .06em; color: oklch(0.45 0.05 200); border-bottom: 2px solid transparent; cursor: pointer; }
+.bal-tabs button.is-active { background: oklch(0.93 0.02 260); color: oklch(0.42 0.14 265); border-bottom-color: oklch(0.45 0.08 220); }
+.bal-stats { display: grid; gap: 14px; margin: 0 0 18px; font-size: 18px; }
+.bal-stats > div { display: grid; grid-template-columns: 1fr 1fr; align-items: center; }
+.bal-stats dt { display: flex; align-items: center; gap: 10px; }
+.bal-stats dt .material-icons { font-size: 30px; color: oklch(0.35 0 0); }
+.bal-stats dd { margin: 0; text-align: right; padding-right: 18%; }
+.hier-pay { margin-left: auto; color: var(--adm-accent); display: inline-flex; padding: 2px 6px; cursor: pointer; }
+.hier-pay .material-icons { font-size: 20px; }
+.hier-child-cell { display: flex; align-items: center; }
+.adm-pay-btn { display: inline-flex; align-items: center; gap: 6px; margin-left: auto; }
